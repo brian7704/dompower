@@ -343,21 +343,36 @@ class DompowerClient:
             expect_binary=True,
         )
 
-        # Parse the Excel response
-        return self._parse_excel_usage(response)  # type: ignore[arg-type]
+        # Parse the Excel response and filter to requested date range
+        return self._parse_excel_usage(
+            response,  # type: ignore[arg-type]
+            start_date,
+            end_date,
+        )
 
-    def _parse_excel_usage(self, excel_data: bytes) -> list[IntervalUsageData]:
+    def _parse_excel_usage(
+        self,
+        excel_data: bytes,
+        start_date: date,
+        end_date: date,
+    ) -> list[IntervalUsageData]:
         """Parse Excel usage data into IntervalUsageData objects.
 
         The Excel file is in wide format:
         - Row 1: Headers (Account No, Recorder ID, Date, 12:00 AM kWH, ...)
         - Row 2+: Data rows with date in column C and 48 half-hour readings
 
+        Note: The API may return more data than requested, so we filter to
+        the requested date range.
+
         Args:
             excel_data: Raw Excel file bytes.
+            start_date: Start date for filtering results.
+            end_date: End date for filtering results.
 
         Returns:
-            List of IntervalUsageData objects sorted by timestamp.
+            List of IntervalUsageData objects sorted by timestamp,
+            filtered to the requested date range.
         """
         try:
             import openpyxl
@@ -443,10 +458,21 @@ class DompowerClient:
                     )
                 )
 
+        # Filter to requested date range (API may return more data than requested)
+        usage_data = [
+            u for u in usage_data
+            if start_date <= u.timestamp.date() <= end_date
+        ]
+
         # Sort by timestamp
         usage_data.sort(key=lambda x: x.timestamp)
 
-        _LOGGER.debug("Parsed %d interval usage records", len(usage_data))
+        _LOGGER.debug(
+            "Parsed %d interval usage records (filtered to %s - %s)",
+            len(usage_data),
+            start_date,
+            end_date,
+        )
 
         return usage_data
 
