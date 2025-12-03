@@ -460,8 +460,7 @@ class DompowerClient:
 
         # Filter to requested date range (API may return more data than requested)
         usage_data = [
-            u for u in usage_data
-            if start_date <= u.timestamp.date() <= end_date
+            u for u in usage_data if start_date <= u.timestamp.date() <= end_date
         ]
 
         # Sort by timestamp
