@@ -90,9 +90,7 @@ class TokenManager:
         if self._token_expires_at is None:
             return True
         # Add 30 second buffer to avoid edge cases
-        return datetime.now(UTC) >= (
-            self._token_expires_at - timedelta(seconds=30)
-        )
+        return datetime.now(UTC) >= (self._token_expires_at - timedelta(seconds=30))
 
     def set_tokens(
         self,

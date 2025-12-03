@@ -721,8 +721,11 @@ class DompowerClient:
             params={"customerNumber": customer_number, "uuid": uuid},
         )
 
+        assert isinstance(response, dict)
         return self._parse_customer_info_response(
-            response, customer_number, include_inactive  # type: ignore[arg-type]
+            response,
+            customer_number,
+            include_inactive,
         )
 
     def _parse_accounts_response(

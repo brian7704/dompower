@@ -18,9 +18,7 @@ class TestDompowerClient:
             client = DompowerClient(session)
             assert not client.has_tokens
 
-    async def test_client_with_tokens(
-        self, sample_tokens: dict[str, str]
-    ) -> None:
+    async def test_client_with_tokens(self, sample_tokens: dict[str, str]) -> None:
         """Test that client with tokens is properly initialized."""
         async with ClientSession() as session:
             client = DompowerClient(

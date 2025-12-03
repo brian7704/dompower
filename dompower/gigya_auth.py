@@ -558,11 +558,13 @@ class GigyaAuthenticator:
                 x in cookie.key
                 for x in ("gmid", "ucid", "incap", "visid", "nlbi", "gig_")
             ):
-                cookies.append({
-                    "name": cookie.key,
-                    "value": cookie.value,
-                    "domain": cookie.get("domain", ""),
-                })
+                cookies.append(
+                    {
+                        "name": cookie.key,
+                        "value": cookie.value,
+                        "domain": cookie.get("domain", ""),
+                    }
+                )
         return {"version": 1, "cookies": cookies}
 
     def import_cookies(self, data: dict[str, Any]) -> bool:
@@ -768,9 +770,11 @@ class GigyaAuthenticator:
         self._gigya_session.login_token = session_info.get("login_token")
         self._gigya_session.id_token = response.get("id_token")
 
-        _LOGGER.debug("Registration finalized, login_token: %s, id_token: %s",
-                      bool(self._gigya_session.login_token),
-                      bool(self._gigya_session.id_token))
+        _LOGGER.debug(
+            "Registration finalized, login_token: %s, id_token: %s",
+            bool(self._gigya_session.login_token),
+            bool(self._gigya_session.id_token),
+        )
 
     async def _async_complete_login(self) -> TokenPair:
         """Complete login by getting fresh id_token and exchanging for API tokens."""
