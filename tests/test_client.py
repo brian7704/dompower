@@ -1,6 +1,7 @@
 """Tests for DompowerClient."""
 
 import json
+from typing import Any
 
 import pytest
 from aiohttp import ClientSession
@@ -80,7 +81,7 @@ class TestTokenRefresh:
         self,
         aresponses: ResponsesMockServer,
         sample_tokens: dict[str, str],
-        sample_refresh_response: dict,
+        sample_refresh_response: dict[str, Any],
     ) -> None:
         """Test successful token refresh."""
         aresponses.add(

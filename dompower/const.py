@@ -25,7 +25,10 @@ DEFAULT_HEADERS: Final[dict[str, str]] = {
     "pt": "1",
     "channel": "WEB",
     "Origin": "https://myaccount.dominionenergy.com",
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.00 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.00",
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) "
+        "AppleWebKit/537.00 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.00"
+    ),
 }
 
 # Token expiration (in minutes)

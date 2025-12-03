@@ -1,5 +1,7 @@
 """Pytest configuration and fixtures for dompower tests."""
 
+from typing import Any
+
 import pytest
 
 
@@ -13,7 +15,7 @@ def sample_tokens() -> dict[str, str]:
 
 
 @pytest.fixture
-def sample_refresh_response() -> dict:
+def sample_refresh_response() -> dict[str, Any]:
     """Sample response from token refresh endpoint."""
     return {
         "status": {

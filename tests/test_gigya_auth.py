@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
@@ -37,7 +38,9 @@ class TestGigyaAuthenticatorInit:
         assert auth._cookie_file is None
         assert not auth._session_initialized
 
-    def test_init_with_cookie_file(self, mock_session: MagicMock, tmp_path) -> None:
+    def test_init_with_cookie_file(
+        self, mock_session: MagicMock, tmp_path: Path
+    ) -> None:
         """Test initialization with cookie file."""
         cookie_file = tmp_path / "cookies.json"
         auth = GigyaAuthenticator(mock_session, cookie_file=cookie_file)
