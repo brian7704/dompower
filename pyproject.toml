@@ -37,8 +37,8 @@ dev = [
 dompower = "dompower.__main__:main"
 
 [project.urls]
-Homepage = "https://github.com/YeomansII/dompower"
-Repository = "https://github.com/YeomansII/dompower"
+Homepage = "https://github.com/YeomansIII/dompower"
+Repository = "https://github.com/YeomansIII/dompower"
 
 [build-system]
 requires = ["hatchling"]
